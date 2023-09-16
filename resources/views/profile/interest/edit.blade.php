@@ -16,7 +16,27 @@
                 <form method="POST" action="{{ route('user.interest.editUpdate',$data->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    
+                   
+                    {{-- Country  --}}
+                <div class="row border p-2 border-light">
+                  <div class="col-md-4">
+                    <label for="selectedItems">Interested Country <span class="text-danger">*</span></label>
+                  </div>
+                  {{-- Country --}}
+                  <div class="col-md-8">
+                    <select name="country[]" class="form-select" id="country-field" data-placeholder="Choose Country" multiple>
+                        @foreach ($countries as $cr)
+                        <option
+                        @foreach ($data->InterestCountry as $InterestCountry) 
+                        @if ($InterestCountry->country->id == $cr->id)
+                        @selected(true)
+                        @endif
+                        @endforeach
+                        value="{{$cr->id}}">{{$cr->title}}</option>
+                        @endforeach
+                    </select>
+                  </div>
+                </div>
                   {{-- Genre  --}}
                 <div class="row border p-2 border-light">
                     <div class="col-md-4">
@@ -127,6 +147,12 @@
     {{-- Multi Data --}}
     <script>
         $( '#genre-field' ).select2( {
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '50%' : 'style',
+            placeholder: $( this ).data( 'placeholder' ),
+            closeOnSelect: false,
+        } );
+        $( '#country-field' ).select2( {
             theme: "bootstrap-5",
             width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '50%' : 'style',
             placeholder: $( this ).data( 'placeholder' ),

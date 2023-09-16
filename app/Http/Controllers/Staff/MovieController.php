@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Staff;
 use App\Models\Cast;
 use App\Models\Genre;
 use App\Models\Movie;
+use App\Models\Country;
 use App\Models\Director;
 use App\Models\Language;
 use App\Models\MovieCast;
 use App\Models\MovieGenre;
+use App\Models\MovieRating;
+use App\Models\MovieCountry;
 use Illuminate\Http\Request;
 use App\Models\MovieDirector;
 use App\Models\MovieLanguage;
@@ -16,7 +19,6 @@ use App\Models\MoviePcompany;
 use App\Models\ProductionCompany;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\MovieRating;
 
 class MovieController extends Controller
 {
@@ -41,7 +43,8 @@ class MovieController extends Controller
         $languages = Language::all();
         $pcompanys = ProductionCompany::all();
         $directors = Director::all();
-        return view('staff.movie.create', ['genres' => $genres, 'casts' => $casts, 'languages' => $languages, 'pcompanys' => $pcompanys, 'directors' => $directors]);
+        $countries = Country::all();
+        return view('staff.movie.create', ['genres' => $genres, 'casts' => $casts, 'languages' => $languages, 'pcompanys' => $pcompanys, 'directors' => $directors, 'countries' => $countries]);
     }
 
     /**
@@ -54,6 +57,12 @@ class MovieController extends Controller
             'title' => 'required',
             'photo' => 'required',
             'release' => 'required',
+            'country' => 'required',
+            'genre' => 'required',
+            'cast' => 'required',
+            'director' => 'required',
+            'language' => 'required',
+            'pcompany' => 'required',
         ]);
         //Data save to Database 
         $data = new Movie();
@@ -65,6 +74,16 @@ class MovieController extends Controller
             $data->photo = $request->file('photo')->store('MoviePhoto', 'public');
         }
         $data->save();
+        //Country relation save
+        if (count($request->country) >= 1) {
+            foreach ($request->country as $country) {
+                //Movie Data save to Genre 
+                $MovieCountryData = new MovieCountry();
+                $MovieCountryData->movie_id = $data->id;
+                $MovieCountryData->country_id = $country;
+                $MovieCountryData->save();
+            }
+        }
         //Genre relation save
         if (count($request->genre) >= 1) {
             foreach ($request->genre as $genre) {
@@ -179,8 +198,9 @@ class MovieController extends Controller
         $MovieDirectordata = MovieDirector::all()->where('movie_id', '=', $id);
         $MovieLanguagedata = MovieLanguage::all()->where('movie_id', '=', $id);
         $MoviePcompanydata = MoviePcompany::all()->where('movie_id', '=', $id);
+        $MovieCountryData = MovieCountry::all()->where('movie_id', '=', $id);
         $MovieRatingData = MovieRating::all()->where('movie_id', '=', $id);
-        return view('staff.movie.show', ['data' => $data, 'MovieGenredata' => $MovieGenredata, 'MovieCastdata' => $MovieCastdata, 'MovieDirectordata' => $MovieDirectordata, 'MovieLanguagedata' => $MovieLanguagedata, 'MoviePcompanydata' => $MoviePcompanydata, 'MovieRatingData' => $MovieRatingData]);
+        return view('staff.movie.show', ['data' => $data, 'MovieGenredata' => $MovieGenredata, 'MovieCountryData' => $MovieCountryData, 'MovieCastdata' => $MovieCastdata, 'MovieDirectordata' => $MovieDirectordata, 'MovieLanguagedata' => $MovieLanguagedata, 'MoviePcompanydata' => $MoviePcompanydata, 'MovieRatingData' => $MovieRatingData]);
     }
 
     /**
@@ -195,7 +215,8 @@ class MovieController extends Controller
         $languages = Language::all();
         $pcompanys = ProductionCompany::all();
         $directors = Director::all();
-        return view('staff.movie.edit', ['data' => $data, 'genres' => $genres, 'casts' => $casts, 'languages' => $languages, 'pcompanys' => $pcompanys, 'directors' => $directors]);
+        $countries = Country::all();
+        return view('staff.movie.edit', ['data' => $data, 'genres' => $genres, 'casts' => $casts, 'languages' => $languages, 'pcompanys' => $pcompanys, 'directors' => $directors, 'countries' => $countries]);
     }
 
     /**
@@ -209,6 +230,12 @@ class MovieController extends Controller
         $request->validate([
             'title' => 'required',
             'release' => 'required',
+            'genre' => 'required',
+            'cast' => 'required',
+            'director' => 'required',
+            'language' => 'required',
+            'country' => 'required',
+            'pcompany' => 'required',
         ]);
         //Data save to Database 
         $data->title = $request->title;
@@ -221,6 +248,45 @@ class MovieController extends Controller
             $data->photo = $request->prev_photo;
         }
         $data->save();
+        //Country relation Update
+        if (count($request->country) >= 1) {
+            $oldMovieCountryData = MovieCountry::all()->where('movie_id', '=', $data->id);
+            $status = 0;
+            //Delete Removed Genre
+            foreach ($oldMovieCountryData as $oldcountry) {
+                foreach ($request->country as $country) {
+                    if ($country == $oldcountry->country_id) {
+                        $status = 1;
+                        break;
+                    } else {
+                        $status = 0;
+                    }
+                }
+                if ($status == 0) {
+                    $dataoldGenre = DB::table('movie_countries')
+                        ->where('country_id', '=', $oldcountry->country_id)
+                        ->delete();
+                }
+            }
+            //Add If not existed in relation
+            foreach ($request->country as $country) {
+                foreach ($oldMovieCountryData as $oldcountry) {
+                    if ($country == $oldcountry->country_id) {
+                        $status = 1;
+                        break;
+                    } else {
+                        $status = 0;
+                    }
+                }
+                if ($status != 1) {
+                    //Movie Data save to New Genre 
+                    $MovieCountryData = new MovieCountry();
+                    $MovieCountryData->movie_id = $data->id;
+                    $MovieCountryData->country_id = $country;
+                    $MovieCountryData->save();
+                }
+            }
+        }
         //Genre relation Update
         if (count($request->genre) >= 1) {
             $oldMovieGenreData = MovieGenre::all()->where('movie_id', '=', $data->id);

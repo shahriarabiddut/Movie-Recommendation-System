@@ -31,7 +31,7 @@
             collapsed
         @endif" href="#" data-toggle="collapse" data-target="#collapseOne"
             aria-expanded="true" aria-controls="collapseOne">
-            <i class="fas fa-table"></i>
+            <i class="fas fa-users"></i>
             <span>Actor/Actress</span>
         </a>
         <div id="collapseOne" class="collapse @if(request()->is('staff/cast*')) show @endif" aria-labelledby="headingUtilities"
@@ -52,7 +52,7 @@
             collapsed
         @endif" href="#" data-toggle="collapse" data-target="#collapseThree"
             aria-expanded="true" aria-controls="collapseThree">
-            <i class="fas fa-table"></i>
+            <i class="fas fa-book"></i>
             <span>Movie Genres</span>
         </a>
         <div id="collapseThree" class="collapse @if(request()->is('staff/genre*')) show @endif" aria-labelledby="headingUtilities"
@@ -94,7 +94,7 @@
             collapsed
         @endif" href="#" data-toggle="collapse" data-target="#collapseFive"
             aria-expanded="true" aria-controls="collapseFive">
-            <i class="fas fa-table"></i>
+            <i class="fas fa-building"></i>
             <span>Production Company</span>
         </a>
         <div id="collapseFive" class="collapse @if(request()->is('staff/pcompany*')) show @endif" aria-labelledby="headingUtilities"
@@ -128,6 +128,28 @@
         </div>
     </li>
      <!-- Nav Item Movie - Utilities Collapse Menu -->
+     <!-- Nav Item Countries - Utilities Collapse Menu -->
+     <div class="sidebar-heading">
+        Country Management
+    </div>
+    <!-- Nav Email Countries - Utilities Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link @if (!request()->is('staff/country*'))
+            collapsed
+        @endif" href="#" data-toggle="collapse" data-target="#collapseEight"
+            aria-expanded="true" aria-controls="collapseEight">
+            <i class="fas fa-flag"></i>
+            <span>Countries</span>
+        </a>
+        <div id="collapseEight" class="collapse @if(request()->is('staff/country*')) show @endif" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Country Management</h6>
+                <a class="collapse-item" href="{{ route('staff.country.index') }}">View All</a>
+                <a class="collapse-item" href="{{ route('staff.country.create') }}">Add new</a>
+            </div>
+        </div>
+    </li>
     <hr class="sidebar-divider">
 
     <div class="sidebar-heading">
@@ -154,8 +176,6 @@
      <!-- Nav Item Support - Utilities Collapse Menu -->
     <hr class="sidebar-divider">
     <!-- Heading -->
-         <!-- Nav Item Movie - Utilities Collapse Menu -->
-         <hr class="sidebar-divider">
 
          <div class="sidebar-heading">
              User Management
@@ -164,12 +184,12 @@
          <li class="nav-item">
              <a class="nav-link @if (!request()->is('staff/user*'))
                  collapsed
-             @endif" href="#" data-toggle="collapse" data-target="#collapseEight"
-                 aria-expanded="true" aria-controls="collapseEight">
+             @endif" href="#" data-toggle="collapse" data-target="#collapseNine"
+                 aria-expanded="true" aria-controls="collapseNine">
                  <i class="fas fa-users"></i>
                  <span>Users</span>
              </a>
-             <div id="collapseEight" class="collapse @if(request()->is('staff/user*')) show @endif" aria-labelledby="headingUtilities"
+             <div id="collapseNine" class="collapse @if(request()->is('staff/user*')) show @endif" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                  <div class="bg-white py-2 collapse-inner rounded">
                      <h6 class="collapse-header">User Management</h6>

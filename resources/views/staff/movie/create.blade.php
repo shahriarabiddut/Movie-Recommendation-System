@@ -13,6 +13,12 @@
             <a href="{{ route('staff.movie.index') }}" class="float-right btn btn-success btn-sm"> <i class="fa fa-arrow-left"></i> View All </a> </h6>
         </div>
         <div class="card-body">
+            @error('country') <div class="alert alert-danger">{{ $message }}</div> @enderror
+            @error('genre') <div class="alert alert-danger">{{ $message }}</div> @enderror
+            @error('cast') <div class="alert alert-danger">{{ $message }}</div> @enderror
+            @error('director') <div class="alert alert-danger">{{ $message }}</div> @enderror
+            @error('language') <div class="alert alert-danger">{{ $message }}</div> @enderror
+            @error('pcompany') <div class="alert alert-danger">{{ $message }}</div> @enderror
             <div class="container">
                     <form method="POST" action="{{ route('staff.movie.store') }}" enctype="multipart/form-data">
                         @csrf
@@ -43,6 +49,19 @@
                             <input required name="release" type="date" class="form-control" >
                         </div>
                       </div>
+                      {{-- Countries  --}}
+                    <div class="row border p-2 border-light">
+                      <div class="col-md-4">
+                        <label for="selectedItems">Origin Country <span class="text-danger">*</span></label>
+                      </div>
+                      <div class="col-md-8">
+                        <select name="country[]" class="form-select" id="country-field" data-placeholder="Choose Country" multiple>
+                            @foreach ($countries as $ct)
+                            <option value="{{$ct->id}}">{{$ct->title}}</option>
+                            @endforeach
+                        </select>
+                      </div>
+                    </div>
                       {{-- Genre  --}}
                     <div class="row border p-2 border-light">
                         <div class="col-md-4">
@@ -145,6 +164,12 @@
     </div>
     {{-- Multi Data --}}
     <script>
+      $( '#country-field' ).select2( {
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '50%' : 'style',
+            placeholder: $( this ).data( 'placeholder' ),
+            closeOnSelect: false,
+        } );
         $( '#genre-field' ).select2( {
             theme: "bootstrap-5",
             width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '50%' : 'style',

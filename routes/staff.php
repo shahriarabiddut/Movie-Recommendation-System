@@ -12,6 +12,7 @@ use App\Http\Controllers\Staff\DirectorController;
 use App\Http\Controllers\Staff\LanguageController;
 use App\Http\Controllers\Staff\ProductionCompanyController;
 use App\Http\Controllers\Staff\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Staff\CountryController;
 
 //Staff Routes
 Route::namespace('Staff')->prefix('staff')->name('staff.')->group(function () {
@@ -50,6 +51,9 @@ Route::middleware('staff')->prefix('staff')->name('staff.')->group(function () {
     // Language Crud
     Route::get('language/{id}/delete', [LanguageController::class, 'destroy']);
     Route::resource('language', LanguageController::class);
+    // Country Crud
+    Route::get('country/{id}/delete', [CountryController::class, 'destroy']);
+    Route::resource('country', CountryController::class);
     // Production Company Crud
     Route::get('pcompany/{id}/delete', [ProductionCompanyController::class, 'destroy']);
     Route::resource('pcompany', ProductionCompanyController::class);

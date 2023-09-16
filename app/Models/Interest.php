@@ -12,6 +12,10 @@ class Interest extends Model
     {
         return $this->hasMany(InterestGenre::class, 'interest_id');
     }
+    function InterestCountry()
+    {
+        return $this->hasMany(InterestCountry::class, 'interest_id');
+    }
     function InterestCast()
     {
         return $this->hasMany(InterestCast::class, 'interest_id');

@@ -16,13 +16,26 @@
             <div class="container">
                     <form method="POST" action="{{ route('user.interest.store') }}" enctype="multipart/form-data">
                         @csrf
+                        {{-- Country  --}}
+                    <div class="row border p-2 border-light">
+                      <div class="col-md-4">
+                        <label for="selectedItems">Interested Country <span class="text-danger">*</span></label>
+                      </div>
+                      <div class="col-md-8">
+                        <select multiple required name="country[]" class="form-select" id="country-field" data-placeholder="Choose Country" multiple>
+                            @foreach ($countries as $gr)
+                            <option value="{{$gr->id}}">{{$gr->title}}</option>
+                            @endforeach
+                        </select>
+                      </div>
+                    </div>
                       {{-- Genre  --}}
                     <div class="row border p-2 border-light">
                         <div class="col-md-4">
                           <label for="selectedItems">Genre <span class="text-danger">*</span></label>
                         </div>
                         <div class="col-md-8">
-                          <select name="genre[]" class="form-select" id="genre-field" data-placeholder="Choose Genre" multiple>
+                          <select multiple required name="genre[]" class="form-select" id="genre-field" data-placeholder="Choose Genre" multiple>
                               @foreach ($genres as $gr)
                               <option value="{{$gr->id}}">{{$gr->title}}</option>
                               @endforeach
@@ -109,6 +122,12 @@
     </div>
     {{-- Multi Data --}}
     <script>
+        $( '#country-field' ).select2( {
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '50%' : 'style',
+            placeholder: $( this ).data( 'placeholder' ),
+            closeOnSelect: false,
+        } );
         $( '#genre-field' ).select2( {
             theme: "bootstrap-5",
             width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '50%' : 'style',

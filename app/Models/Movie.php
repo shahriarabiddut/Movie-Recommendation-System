@@ -13,6 +13,10 @@ class Movie extends Model
     {
         return $this->hasMany(MovieGenre::class, 'movie_id');
     }
+    function MovieCountry()
+    {
+        return $this->hasMany(MovieCountry::class, 'movie_id');
+    }
     function MovieCast()
     {
         return $this->hasMany(MovieCast::class, 'movie_id');

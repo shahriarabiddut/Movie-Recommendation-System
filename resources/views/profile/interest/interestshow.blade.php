@@ -24,6 +24,14 @@
                         </td>
                     </tr>
                     <tr>
+                        <th>Interested Country Films</th>
+                        <td>
+                            @foreach ($InterestCountryData as $InterestCountry)
+                           <span class="m-1 p-1 bg-secondary text-white"> {{ $InterestCountry->country->title }} </span>  
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Cast</th>
                         <td>
                             @foreach ($InterestCastdata as $InterestCastd)

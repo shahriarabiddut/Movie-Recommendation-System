@@ -1,3 +1,8 @@
+## Required Configuration
+
+PHP >= 8.1
+Laravel 10
+
 ## Use THis Command to dowload required Packages
 
 The most important thing to do when cloning a laravel project is to first run `composer update` then `composer install` The ###composer install command installs any required dependencies for that laravel app.
@@ -40,6 +45,8 @@ The steps I took to clone a laravel project required the `php artisan key:genera
    3.4 Language CRUD
    3.5 Director CRUD
    3.6 Movie CRUD
+   3.7 Country CRUD
+   3.8 Dashboard simply Designed
 4. User profile and Interest Added
 
 ## Learning Laravel

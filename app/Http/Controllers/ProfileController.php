@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Cast;
 use App\Models\User;
 use App\Models\Genre;
+use App\Models\Country;
 use App\Models\Director;
 use App\Models\Interest;
 use App\Models\Language;
@@ -14,6 +15,7 @@ use App\Models\InterestCast;
 use Illuminate\Http\Request;
 use App\Models\InterestGenre;
 use App\Models\InterestRating;
+use App\Models\InterestCountry;
 use App\Models\InterestDirector;
 use App\Models\InterestLanguage;
 use App\Models\InterestPcompany;
@@ -111,7 +113,8 @@ class ProfileController extends Controller
             $languages = Language::all();
             $pcompanys = ProductionCompany::all();
             $directors = Director::all();
-            return view('profile.interest.interest', ['genres' => $genres, 'casts' => $casts, 'languages' => $languages, 'pcompanys' => $pcompanys, 'directors' => $directors, 'user' => $user]);
+            $countries = Country::all();
+            return view('profile.interest.interest', ['genres' => $genres, 'casts' => $casts, 'languages' => $languages, 'pcompanys' => $pcompanys, 'directors' => $directors, 'countries' => $countries, 'user' => $user]);
         } else {
             $id = $data->id;
             //IF any interest Added
@@ -122,7 +125,8 @@ class ProfileController extends Controller
             $InterestLanguagedata = InterestLanguage::all()->where('interest_id', '=', $id);
             $InterestPcompanydata = InterestPcompany::all()->where('interest_id', '=', $id);
             $InterestRatingData = InterestRating::all()->where('interest_id', '=', $id);
-            return view('profile.interest.interestshow', ['data' => $data, 'InterestGenredata' => $InterestGenredata, 'InterestCastdata' => $InterestCastdata, 'InterestDirectordata' => $InterestDirectordata, 'InterestLanguagedata' => $InterestLanguagedata, 'InterestPcompanydata' => $InterestPcompanydata, 'InterestRatingData' => $InterestRatingData]);
+            $InterestCountryData = InterestCountry::all()->where('interest_id', '=', $id);
+            return view('profile.interest.interestshow', ['data' => $data, 'InterestGenredata' => $InterestGenredata, 'InterestCastdata' => $InterestCastdata, 'InterestDirectordata' => $InterestDirectordata, 'InterestLanguagedata' => $InterestLanguagedata, 'InterestPcompanydata' => $InterestPcompanydata, 'InterestCountryData' => $InterestCountryData, 'InterestRatingData' => $InterestRatingData]);
         }
     }
 
@@ -134,11 +138,27 @@ class ProfileController extends Controller
         //
         $request->validate([
             'user_id' => 'required',
+            'country' => 'required',
+            'genre' => 'required',
+            'cast' => 'required',
+            'director' => 'required',
+            'language' => 'required',
+            'pcompany' => 'required',
         ]);
         //Data save to Database 
         $data = new Interest();
         $data->user_id = $request->user_id;
         $data->save();
+        //Movie Country relation save
+        if (count($request->country) >= 1) {
+            foreach ($request->country as $country) {
+                //Interest Data save to Genre 
+                $InterestCountryData = new InterestCountry();
+                $InterestCountryData->interest_id = $data->id;
+                $InterestCountryData->country_id = $country;
+                $InterestCountryData->save();
+            }
+        }
         //Genre relation save
         if (count($request->genre) >= 1) {
             foreach ($request->genre as $genre) {
@@ -251,7 +271,8 @@ class ProfileController extends Controller
         $languages = Language::all();
         $pcompanys = ProductionCompany::all();
         $directors = Director::all();
-        return view('profile.interest.edit', ['data' => $data, 'genres' => $genres, 'casts' => $casts, 'languages' => $languages, 'pcompanys' => $pcompanys, 'directors' => $directors, 'user' => $user]);
+        $countries = Country::all();
+        return view('profile.interest.edit', ['data' => $data, 'genres' => $genres, 'casts' => $casts, 'languages' => $languages, 'pcompanys' => $pcompanys, 'directors' => $directors, 'countries' => $countries, 'user' => $user]);
     }
     public function editUpdate(Request $request, string $id)
     {
@@ -262,6 +283,45 @@ class ProfileController extends Controller
         $data = Interest::find($id);
         if ($data->user_id != $request->user_id) {
             return redirect()->back();
+        }
+        //Country relation Update
+        if (count($request->country) >= 1) {
+            $oldInterestCountryData = InterestCountry::all()->where('interest_id', '=', $data->id);
+            $status = 0;
+            //Delete Removed Country
+            foreach ($oldInterestCountryData as $oldcountry) {
+                foreach ($request->country as $country) {
+                    if ($country == $oldcountry->country_id) {
+                        $status = 1;
+                        break;
+                    } else {
+                        $status = 0;
+                    }
+                }
+                if ($status == 0) {
+                    $dataoldGenre = DB::table('interest_countries')
+                        ->where('country_id', '=', $oldcountry->country_id)
+                        ->delete();
+                }
+            }
+            //Add If not existed in relation
+            foreach ($request->country as $country) {
+                foreach ($oldInterestCountryData as $oldcountry) {
+                    if ($country == $oldcountry->country_id) {
+                        $status = 1;
+                        break;
+                    } else {
+                        $status = 0;
+                    }
+                }
+                if ($status != 1) {
+                    //Movie Data save to New Genre 
+                    $InterestCountryData = new InterestCountry();
+                    $InterestCountryData->interest_id = $data->id;
+                    $InterestCountryData->country_id = $country;
+                    $InterestCountryData->save();
+                }
+            }
         }
         //Genre relation Update
         if (count($request->genre) >= 1) {
