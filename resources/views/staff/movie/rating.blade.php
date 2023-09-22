@@ -48,6 +48,7 @@
                             @break
                         @case(3)
                             max='5'
+                            step="0.1"
                             @break
                         @default
                             max='100'

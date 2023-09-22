@@ -1,111 +1,135 @@
-<!DOCTYPE html>
+  <!-- Start Header -->
+  <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>@yield('title')  | @isset($SiteOption) {{ $SiteOption[0]->value }} @endisset </title>
 
-  <title> @yield('title')  | @isset($SiteOption)
-    {{ $SiteOption[0]->value }}
-@endisset</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
+  <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+  <link href="{{  asset('vendor/fontawesome-free/css/all.min.css')  }}" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
 </head>
-
 <body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-
-      <a href="{{ route('root') }}" class="logo d-flex align-items-center me-auto me-lg-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>@isset($SiteOption)
-          {{ $SiteOption[0]->value }}
-      @endisset
-      <span>.</span></h1>
-      </a>
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a href="{{ route('root') }}">Home</a></li>
-          @auth('staff')
-          <li class="dropdown"><a href="#"><span>Movie</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-          <li><a href="{{ route('staff.movie.index') }}">View All</a></li>
-          <li><a href="{{ route('staff.movie.create') }}">Add Movie</a></li>
-            </ul>
-          </li>
-          <li class="dropdown"><a href="#"><span>Users</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-          <li><a href="{{ route('staff.user.index') }}">View All</a></li>
-          <li><a href="{{ route('staff.user.create') }}">Add User</a></li>
-            </ul>
-          </li>
-          @else
-          <li class="dropdown"><a href="#"><span>Movie</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-          <li><a href="{{ route('movie.index') }}">All Movies</a></li>
-            </ul>
-          </li>
+<section id="header">
+<div id="signup-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+				   <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Login</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			  </div>
+					<div class="modal-body">
+						<form method="POST" action="{{ route('login') }}" class="ps-3 pe-3">
+              @csrf
+							<div class="mb-3">
+                <label for="username" class="form-label">Email</label>
+                <input required name="email" class="form-control" placeholder="Enter Email address" type="email" value="{{ old('email') }}">
+              </div>
+							<div class="mb-3">
+                <label for="emailaddress" class="form-label">Password</label>
+                <input required name="password" class="form-control" placeholder="Enter password" type="password" value="{{ old('password') }}">
+              </div>
+              <div class="mb-3 text-center">
+                <button type="btn d-block" class="btn"><h6 class="button_1"> Login </h6></button>
+               </div>
+              <hr>
+              @if (Route::has('password.request'))
+              <p class="text-center">Forgot Your Password?
+                <a href="{{ route('password.request') }}">Request New Password</a>
+              </p>
+              @endif
+              <hr>
+              @if (Route::has('register'))
+              <p class="text-center">Don't Have an account?
+                  <a href="{{ route('register') }}" class="btn btn-block btn-info">
+                      <i class="fa fa-signup m-2"></i>Create an Account</a>
+              </p>
+              @endif
+              
+            </form>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+<nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
+  <div class="container-fluid">
+    <a class="navbar-brand fs-4 p-0 fw-bold text-white text-uppercase" href="{{ route('root') }}"><i class="fa fa-video-camera me-1 col_light fs-1 align-middle"></i> @isset($SiteOption) {{ $SiteOption[0]->value }} @endisset </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mb-0">
+	    
+        <li class="nav-item">
+          <a class="nav-link @if(request()->is('/')) active @endif" aria-current="page" href="{{ route('root') }}">Home</a>
+        </li>
+		<li class="nav-item">
+          <a class="nav-link @if(request()->is('about')) active @endif" href="{{ route('root.about') }}">About </a>
+        </li>				
+        @auth('staff')
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle @if(request()->is('movie')) active @endif" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movie</a>
+          <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{{ route('movie.index') }}">All Movies in Front</a></li>
+            <li><a class="dropdown-item" href="{{ route('staff.movie.index') }}">View All</a></li>
+            <li><a class="dropdown-item border-0" href="{{ route('staff.movie.create') }}">Add Movie</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Users</a>
+          <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{{ route('staff.user.index') }}">View All</a></li>
+            <li><a class="dropdown-item border-0" href="{{ route('staff.user.create') }}">Add User</a></li>
+          </ul>
+        </li>
+        @else
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle @if(request()->is('movie')) active @endif" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Movie</a>
+          <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{{ route('movie.index') }}">All Movies</a></li>
+          </ul>
+        </li>	
+        @endauth
+        @auth('staff')
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Panel</a>
+          <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{{ route('staff.dashboard') }}">Dashboard</a></li>
+            <li><a class="dropdown-item" href="{{ route('staff.profile.view') }}">Profile</a></li>
+          </ul>
+        </li>
+        @else
+            @if (Route::has('login'))
+              @auth
+              <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Panel</a>
+                <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{{ route('user.dashboard') }}">Dashboard</a></li>
+                  <li><a class="dropdown-item" href="{{ route('user.profile.view') }}">Profile</a></li>
+                </ul>
+              </li>
+              @else
+		            <li class="nav-item"><a class="nav-link" data-bs-toggle="modal" data-bs-target="#signup-modal" href="#">Login</a></li>
+		            {{-- <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li> --}}
+                @if (Route::has('register'))
+		            <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                @endif
+              @endauth
+            @endif
+          <li class="nav-item"><a class="nav-link" href="{{ route('staff.login') }}">Admin</a></li>
+          @endauth
+          <li class="nav-item"><a class="nav-link @if(request()->is('contact')) active @endif" href="{{ route('root.contact') }}">Contact</a></li>
+          @auth
+          <li class="nav-item ms-3"><a class="nav-link button" href="{{ route('logout') }}">Logout</a></li>
           @endauth
           @auth('staff')
-          <li class="dropdown"><a href="#"><span>Panel</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-          <li><a href="{{ route('staff.dashboard') }}">Dashboard</a></li>
-          <li><a href="{{ route('staff.profile.view') }}">Profile</a></li>
-            </ul>
-          </li>
-          @else
-              @if (Route::has('login'))
-                @auth
-                <li class="dropdown"><a href="#"><span>Panel</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                  <ul>
-                <li><a href="{{ route('user.dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ route('user.profile.view') }}">Profile</a></li>
-                  </ul>
-                </li>
-                @else
-                <li><a href="{{ route('login') }}">Login</a></li>
-                  @if (Route::has('register'))
-                  <li><a href="{{ route('register') }}">Register</a></li>
-                  @endif
-                @endauth
-              @endif
-            <li><a href="{{ route('staff.login') }}"> Staff Log in</a></li>
-            @endauth
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav><!-- .navbar -->
-      @auth
-      <a class="btn-book-a-table" href="{{ route('logout') }}">Logout</a>
-      @endauth
-      @auth('staff')
-      <a class="btn-book-a-table" href="{{ route('staff.logout') }}">Logout</a>
-      @endauth
-      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-
+          <li class="nav-item ms-3"><a class="nav-link button" href="{{ route('staff.logout') }}">Logout Admin</a></li>
+          @endauth
+      </ul>
+    </nav><!-- .navbar -->
+    
     </div>
-  </header><!-- End Header -->
+  </div>
+</nav>
+</section>
+
+  <!-- End Header -->

@@ -2,11 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\Admin\CastController;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\EmailController;
-use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\EmailController;
+use App\Http\Controllers\Admin\GenreController;
+use App\Http\Controllers\Admin\MovieController;
+use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\DirectorController;
+use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\StaffDepartmentController;
+use App\Http\Controllers\Admin\ProductionCompanyController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 
 //Admin
@@ -52,4 +59,29 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
     //Suport Ticekts View
     Route::get('support', [SupportController::class, 'adminIndex'])->name('support.index');
     Route::get('support/{id}', [SupportController::class, 'showAdmin'])->name('support.show');
+    // Cast Crud
+    Route::get('cast/{id}/delete', [CastController::class, 'destroy']);
+    Route::resource('cast', CastController::class);
+    // Genre Crud
+    Route::get('genre/{id}/delete', [GenreController::class, 'destroy']);
+    Route::resource('genre', GenreController::class);
+    // Language Crud
+    Route::get('language/{id}/delete', [LanguageController::class, 'destroy']);
+    Route::resource('language', LanguageController::class);
+    // Production Company Crud
+    Route::get('pcompany/{id}/delete', [ProductionCompanyController::class, 'destroy']);
+    Route::resource('pcompany', ProductionCompanyController::class);
+    Route::resource('pcompany', ProductionCompanyController::class);
+    // Director Crud
+    Route::get('director/{id}/delete', [DirectorController::class, 'destroy']);
+    Route::resource('director', DirectorController::class);
+    // Country Crud
+    Route::get('country/{id}/delete', [CountryController::class, 'destroy']);
+    Route::resource('country', CountryController::class);
+    // Movie Crud
+    Route::get('movie/{id}/delete', [MovieController::class, 'destroy']);
+    Route::resource('movie', MovieController::class);
+    //Movie Rating Update
+    Route::get('movie/{id}/rating', [MovieController::class, 'rating'])->name('movie.rating');
+    Route::put('movie/rating/{id}', [MovieController::class, 'ratingUpdate'])->name('movie.ratingUpdate');
 });

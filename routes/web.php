@@ -17,8 +17,14 @@ use App\Http\Controllers\SupportController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome2');
 })->name('root');
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('root.about');
+Route::get('/contact', function () {
+    return view('pages.contact');
+})->name('root.contact');
 Route::resource('movie', MovieController::class);
 
 

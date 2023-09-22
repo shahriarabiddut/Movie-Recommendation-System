@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Staff;
 use App\Models\Language;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+
 
 class LanguageController extends Controller
 {
@@ -102,6 +104,13 @@ class LanguageController extends Controller
         //
         $data = Language::find($id);
         $data->delete();
+        //Path of Photo from storage
+        $pathPhoto = 'storage/' . $data->photo;
+        //Delete File from storage
+        if (File::exists($pathPhoto)) {
+            //Delete the photo cover  file
+            File::delete($pathPhoto);
+        }
         return redirect()->route('staff.language.index')->with('danger', 'Language has been deleted Successfully!');
     }
 }

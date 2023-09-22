@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Cast;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+
 
 class CastController extends Controller
 {
@@ -156,6 +158,13 @@ class CastController extends Controller
         //
         $data = Cast::find($id);
         $data->delete();
+        //Path of Photo from storage
+        $pathPhoto = 'storage/' . $data->photo;
+        //Delete File from storage
+        if (File::exists($pathPhoto)) {
+            //Delete the photo cover  file
+            File::delete($pathPhoto);
+        }
         return redirect()->route('staff.cast.index')->with('danger', 'Cast has been deleted Successfully!');
     }
 }

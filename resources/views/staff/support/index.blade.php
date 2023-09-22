@@ -29,7 +29,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Student</th>
+                            <th>User</th>
                             <th>Subject</th>
                             <th>Category</th>
                             <th>RepliedBy</th>
@@ -41,7 +41,7 @@
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Student</th>
+                            <th>User</th>
                             <th>Subject</th>
                             <th>Category</th>
                             <th>RepliedBy</th>
@@ -55,7 +55,7 @@
                         @foreach ($data as $key => $d)
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $d->student->name }} - {{ $d->student->rollno }}</td>
+                            <td>{{ $d->user->name }}</td>
                             <td>{{ $d->subject }}</td>
                             <td>{{ $d->category }}</td>
                             <td>

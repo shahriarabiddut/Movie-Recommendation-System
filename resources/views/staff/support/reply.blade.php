@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('staff/layout')
 @section('title', 'Create Support Ticket')
 @section('content')
 

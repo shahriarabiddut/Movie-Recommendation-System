@@ -25,7 +25,7 @@
     <div class="sidebar-heading">
         Cast Management
     </div>
-    <!-- Nav Email Services - Utilities Collapse Menu -->
+    <!-- Nav Cast Services - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link @if (!request()->is('staff/cast*'))
             collapsed
@@ -43,10 +43,10 @@
             </div>
         </div>
     </li>
+    <!-- Nav Genre Services - Utilities Collapse Menu -->
     <div class="sidebar-heading">
         Genre Management
     </div>
-    <!-- Nav Email Services - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link @if (!request()->is('staff/genre*'))
             collapsed
@@ -64,12 +64,12 @@
             </div>
         </div>
     </li>
+    <!-- Nav Language Services - Utilities Collapse Menu -->
     <div class="sidebar-heading">
         Language Management
     </div>
-    <!-- Nav Email Services - Utilities Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link @if (!request()->is('staff/email*'))
+        <a class="nav-link @if (!request()->is('staff/language*'))
             collapsed
         @endif" href="#" data-toggle="collapse" data-target="#collapseFour"
             aria-expanded="true" aria-controls="collapseFour">
@@ -85,10 +85,10 @@
             </div>
         </div>
     </li>
+    <!-- Nav Production Company Services - Utilities Collapse Menu -->
     <div class="sidebar-heading">
         Production Company Management
     </div>
-    <!-- Nav Email Services - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link @if (!request()->is('staff/pcompany*'))
             collapsed
@@ -106,10 +106,10 @@
             </div>
         </div>
     </li>
+    <!-- Nav Directors Services - Utilities Collapse Menu -->
     <div class="sidebar-heading">
         Directors Management
     </div>
-    <!-- Nav Email Services - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link @if (!request()->is('staff/director*'))
             collapsed
@@ -127,12 +127,11 @@
             </div>
         </div>
     </li>
-     <!-- Nav Item Movie - Utilities Collapse Menu -->
      <!-- Nav Item Countries - Utilities Collapse Menu -->
      <div class="sidebar-heading">
         Country Management
     </div>
-    <!-- Nav Email Countries - Utilities Collapse Menu -->
+    <!-- Nav Countries - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link @if (!request()->is('staff/country*'))
             collapsed
@@ -151,11 +150,10 @@
         </div>
     </li>
     <hr class="sidebar-divider">
-
+    <!-- Nav Movie Services - Utilities Collapse Menu -->
     <div class="sidebar-heading">
         Movie Management
     </div>
-    <!-- Nav Email Services - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link @if (!request()->is('staff/movie*'))
             collapsed

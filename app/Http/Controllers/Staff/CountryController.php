@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Staff;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+
 
 class CountryController extends Controller
 {
@@ -102,6 +104,13 @@ class CountryController extends Controller
         //
         $data = Country::find($id);
         $data->delete();
+        //Path of Photo from storage
+        $pathPhoto = 'storage/' . $data->photo;
+        //Delete File from storage
+        if (File::exists($pathPhoto)) {
+            //Delete the photo cover  file
+            File::delete($pathPhoto);
+        }
         return redirect()->route('staff.country.index')->with('danger', 'Country has been deleted Successfully!');
     }
 }

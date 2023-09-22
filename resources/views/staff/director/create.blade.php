@@ -46,7 +46,7 @@
                         <td><input required name="dob" type="date" class="form-control" ></td>
                     </tr>
                     <tr>
-                        <th>Bio</th>
+                        <th>Bio<span class="text-danger">*</span></th>
                         <td><textarea name="bio" class="form-control"></textarea></td>
                     </tr>
                     <tr>

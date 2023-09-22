@@ -19,6 +19,8 @@ use App\Models\MoviePcompany;
 use App\Models\ProductionCompany;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+
 
 class MovieController extends Controller
 {
@@ -531,6 +533,13 @@ class MovieController extends Controller
                 ->delete();
         }
         $data->delete();
+        //Path of Photo from storage
+        $pathPhoto = 'storage/' . $data->photo;
+        //Delete File from storage
+        if (File::exists($pathPhoto)) {
+            //Delete the photo cover  file
+            File::delete($pathPhoto);
+        }
         return redirect()->route('staff.movie.index')->with('danger', 'Movie has been deleted and Related Data Removed Successfully!');
     }
 

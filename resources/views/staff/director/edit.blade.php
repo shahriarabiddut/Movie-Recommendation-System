@@ -24,8 +24,8 @@
                         <th>Gender</th>
                         <td>
                             <select name="gender" class="form-control">
-                                <option @if ($data->gender='male') @selected(true) @endif value="male">Male</option>
-                                <option @if ($data->gender='female') @selected(true) @endif value="female">Female</option>
+                                <option @if ($data->gender=='male') @selected(true) @endif value="male">Male</option>
+                                <option @if ($data->gender=='female') @selected(true) @endif value="female">Female</option>
                             </select>
                         </td>
                     </tr>

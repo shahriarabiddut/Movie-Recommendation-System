@@ -1,83 +1,111 @@
-<footer id="footer" class="footer">
-
-    <div class="container">
-      <div class="row gy-3">
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-geo-alt icon"></i>
-          <div>
-            <h4>Address</h4>
-            <p>
-              A108 Adam Street <br>
-              New York, NY 535022 - US<br>
-            </p>
-          </div>
-
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links d-flex">
-          <i class="bi bi-telephone icon"></i>
-          <div>
-            <h4>Reservations</h4>
-            <p>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links d-flex">
-          <i class="bi bi-clock icon"></i>
-          <div>
-            <h4>Opening Hours</h4>
-            <p>
-              <strong>Mon-Sat: 11AM</strong> - 23PM<br>
-              Sunday: Closed
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Follow Us</h4>
-          <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-
+<section id="footer" class="p_3">
+  <div class="container-xl">
+    <div class="row footer_1">
+      <div class="col-md-2">
+     <div class="footer_1i">
+      <h6 class="text-white fw-bold">LANGUAGE MOVIES</h6>
+      <hr class="line mb-4">
+      <div class="row footer_1i_small">
+      <h6 class="col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">English Movie</a></h6>
+      <h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Tamil Movie</a></h6>
+      <h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Punjabi Movie</a></h6>
+      <h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Hindi Movie</a></h6>
+      <h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Malyalam Movie</a></h6>
+      <h6 class="mb-0 mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#"> Action Movie</a></h6>
       </div>
+     </div>
     </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>@isset($SiteOption)
-            {{ $SiteOption[0]->value }}
-        @endisset </span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        Designed by <a href="#">Shahriar Ahmed Biddut</a>
-      </div>
+    <div class="col-md-4">
+     <div class="footer_1i">
+      <h6 class="text-white fw-bold">TAG CLOUD</h6>
+      <hr class="line mb-4">
+      <ul class="mb-0">
+       <li class="d-inline-block"><a class="d-block" href="#">Analyze</a></li>
+     <li class="d-inline-block"><a class="d-block" href="#">Audio</a></li>
+     <li class="d-inline-block"><a class="d-block" href="#">Blog</a></li>
+     <li class="d-inline-block"><a class="d-block" href="#">Business</a></li>
+     <li class="d-inline-block"><a class="d-block" href="#">Creative</a></li>
+     <li class="d-inline-block"><a class="d-block" href="#">Design</a></li>
+     <li class="d-inline-block"><a class="d-block" href="#">Experiment</a></li>
+     <li class="d-inline-block"><a class="d-block" href="#">News</a></li>
+     <li class="d-inline-block"><a class="d-block" href="#">Expertize</a></li>
+     <li class="d-inline-block"><a class="d-block" href="#">Express</a></li>
+     <li class="d-inline-block"><a class="d-block" href="#">Share</a></li>
+     <li class="d-inline-block"><a class="d-block" href="#">Sustain</a></li>
+     <li class="d-inline-block"><a class="d-block" href="#">Video</a></li>
+     <li class="d-inline-block"><a class="d-block" href="#">Youtube</a></li>
+      </ul>
+     </div>
     </div>
+    <div class="col-md-2">
+     <div class="footer_1i">
+      <h6 class="text-white fw-bold"> Movie Genres </h6>
+      <hr class="line mb-4">
+      <div class="row footer_1i_small">
+      <h6 class="col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Action Movie</a></h6>
+      <h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Romantic Movie</a></h6>
+      <h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Other Movie</a></h6>
+      <h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Comedy Movie</a></h6>
+      <h6 class="mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Drama Movie</a></h6>
+      <h6 class="mb-0 mt-2 col-md-12 col-6"><i class="fa fa-circle me-1 col_red font_10"></i> <a class="text-muted" href="#">Classical Movie</a></h6>
+      </div>
+     
+     </div>
+    </div>
+    <div class="col-md-4">
+     <div class="footer_1i">
+      <h6 class="text-white fw-bold">SUBSCRIPTION</h6>
+      <hr class="line mb-4">
+      <p class="text-muted">Subscribe your Email address for latest news & updates.</p>
+      <input class="form-control bg-transparent" placeholder="Enter Email Address" type="text">
+      <h6 class="mb-0 mt-4"><a class="button_1 pt-3 pb-3" href="#">Submit <i class="fa fa-check-circle ms-1"></i> </a></h6>
+     </div>
+    </div>
+    </div>
+  </div>
+ </section>
+ 
+ <section id="footer_b" class="pt-3 pb-3">
+  <div class="container-xl">
+    <div class="row footer_b1">
+    <div class="col-md-8">
+     <div class="footer_b1l">
+    <p class="mb-0 fs-6 text-muted mt-1">© {{ date('Y') }} @isset($SiteOption) {{ $SiteOption[0]->value }} @endisset. All Rights Reserved | Design by <a class="col_red" href="https://github.com/shahriarabiddut/">Shahriar Ahmed BIddut</a></p>
+   </div>
+    </div>
+    <div class="col-md-4">
+     <div class="footer_b1r text-end">
+     <ul class="social-network social-circle mb-0">
+           <li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>
+           <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+           <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+           <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+         </ul>
+   </div>
+    </div>
+   </div>
+  </div>
+ </section>
+ 
+ <script defer>
+ window.onscroll = function() {myFunction()};
+ 
+ var navbar_sticky = document.getElementById("navbar_sticky");
+ var sticky = navbar_sticky.offsetTop;
+ var navbar_height = document.querySelector('.navbar').offsetHeight;
+ 
+ function myFunction() {
+   if (window.pageYOffset >= sticky + navbar_height) {
+     navbar_sticky.classList.add("sticky")
+   document.body.style.paddingTop = navbar_height + 'px';
+   } else {
+     navbar_sticky.classList.remove("sticky");
+   document.body.style.paddingTop = '0'
+   }
+ }
+ </script>
+	<script defer src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 
-  </footer><!-- End Footer -->
-  <!-- End Footer -->
-
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
-  <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
-  <script src="{{ asset('assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
-  <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-  <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
-
-  <!-- Template Main JS File -->
-  <script src="{{ asset('assets/js/main.js') }}"></script>
-
-</body>
-
-</html>
+ </body>
+ 
+ </html>
