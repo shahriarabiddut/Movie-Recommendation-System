@@ -48,6 +48,7 @@ The steps I took to clone a laravel project required the `php artisan key:genera
    3.7 Country CRUD
    3.8 Dashboard simply Designed
 4. User profile and Interest Added
+5. Super Admin Added & Support System Updated!
 
 ## Learning Laravel
 

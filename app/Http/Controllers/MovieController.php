@@ -10,12 +10,26 @@ use Illuminate\Http\Request;
 use App\Models\MovieDirector;
 use App\Models\MovieLanguage;
 use App\Models\MoviePcompany;
+use Illuminate\Support\Carbon;
 
 class MovieController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function home()
+    {
+        //
+        $data = Movie::all();
+        $currentDateData = Carbon::now();
+        $currentDate = $currentDateData->format('Y-m-d');
+        $upcoming = Movie::all()->where('release', '>', $currentDate);
+        if (count($upcoming) != null) {
+            return view('welcome', ['data' => $data->sortByDesc("id"), 'upcoming' => $upcoming]);
+        } else {
+            return view('welcome', ['data' => $data->sortByDesc("id")]);
+        }
+    }
     public function index()
     {
         //

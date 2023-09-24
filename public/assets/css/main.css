@@ -27,16 +27,16 @@ body{
      }
     a:hover{
     text-decoration:none;
-    color: #ff4444;
+    color: #000;
      }
     a:focus{
     text-decoration:none;
-    color: #ff4444;
+    color: #000;
      }
     
     .button{
-    background: #000;
-    color:#fff;
+    background: #000 !important;
+    color: #fff !important;
     display: inline-block;
     transition: 0.3s;
     padding:13px 40px!important;
@@ -46,7 +46,7 @@ body{
     .button:hover{
     background:none;
     border:1px solid #fff;
-    color:#fff!important;
+    color:WHITE!important;
      }
     .button:focus{
     color:#fff!important;
@@ -149,22 +149,24 @@ body{
     .navbar{
     padding-top:20px;
     padding-bottom:20px;
-    background:#ff4444; 
+    background:white; 
      }
     #header .nav-link{
-    color:#fff;
+    color:black;
     padding:10px 15px;
     text-transform:uppercase;
     font-size:14px;
      }
     #header .nav-link:hover{
-    color:#ad0707; 
+      color:black;
+      font-weight:bold;
      }
     #header .nav-link:focus{
-    color:#ad0707;
+      color:black;
+      font-weight:bold;
      }
     #header .active{
-    color:#ad0707;
+    color:black;
     font-weight:bold;
      }
     
@@ -183,8 +185,9 @@ body{
     text-transform:uppercase;
      }
     .drop_1 a:hover{
-    background:none;
-    color:#ff4444;
+    background:rgb(238, 112, 112);
+    color:black;
+    font-weight:bold;
      }
     .sticky {
     position: fixed;
@@ -193,7 +196,7 @@ body{
     z-index:3;
     padding-top:10px;
     padding-bottom:10px;
-    background-color: #ff4444;
+    background-color: white;
     }
     .sticky {
     top: -40px;

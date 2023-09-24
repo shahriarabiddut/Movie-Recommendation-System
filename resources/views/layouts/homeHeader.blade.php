@@ -57,11 +57,11 @@
 		</div>
 <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
   <div class="container-fluid">
-    <a class="navbar-brand fs-4 p-0 fw-bold text-white text-uppercase" href="{{ route('root') }}"><i class="fa fa-video-camera me-1 col_light fs-1 align-middle"></i> @isset($SiteOption) {{ $SiteOption[0]->value }} @endisset </a>
+    <a class="navbar-brand fs-4 p-0 fw-bold text-uppercase" href="{{ route('root') }}">@isset($SiteOption) {{ $SiteOption[0]->value }} @endisset <i class="fa fa-film"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-flow: row-reverse;">
       <ul class="navbar-nav mb-0">
 	    
         <li class="nav-item">
@@ -70,18 +70,18 @@
 		<li class="nav-item">
           <a class="nav-link @if(request()->is('about')) active @endif" href="{{ route('root.about') }}">About </a>
         </li>				
-        @auth('staff')
+        @auth('admin')
         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle @if(request()->is('movie')) active @endif" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movie</a>
           <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{{ route('movie.index') }}">All Movies in Front</a></li>
-            <li><a class="dropdown-item" href="{{ route('staff.movie.index') }}">View All</a></li>
-            <li><a class="dropdown-item border-0" href="{{ route('staff.movie.create') }}">Add Movie</a></li>
+            <li><a class="dropdown-item" href="{{ route('admin.movie.index') }}">View All</a></li>
+            <li><a class="dropdown-item border-0" href="{{ route('admin.movie.create') }}">Add Movie</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Users</a>
           <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{{ route('staff.user.index') }}">View All</a></li>
-            <li><a class="dropdown-item border-0" href="{{ route('staff.user.create') }}">Add User</a></li>
+            <li><a class="dropdown-item" href="{{ route('admin.user.index') }}">View All</a></li>
+            <li><a class="dropdown-item border-0" href="{{ route('admin.user.create') }}">Add User</a></li>
           </ul>
         </li>
         @else
@@ -91,11 +91,11 @@
           </ul>
         </li>	
         @endauth
-        @auth('staff')
+        @auth('admin')
         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Panel</a>
           <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{{ route('staff.dashboard') }}">Dashboard</a></li>
-            <li><a class="dropdown-item" href="{{ route('staff.profile.view') }}">Profile</a></li>
+            <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+            <li><a class="dropdown-item" href="{{ route('admin.profile.view') }}">Profile</a></li>
           </ul>
         </li>
         @else
@@ -115,14 +115,14 @@
                 @endif
               @endauth
             @endif
-          <li class="nav-item"><a class="nav-link" href="{{ route('staff.login') }}">Admin</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ route('admin.login') }}">Admin</a></li>
           @endauth
           <li class="nav-item"><a class="nav-link @if(request()->is('contact')) active @endif" href="{{ route('root.contact') }}">Contact</a></li>
           @auth
           <li class="nav-item ms-3"><a class="nav-link button" href="{{ route('logout') }}">Logout</a></li>
           @endauth
-          @auth('staff')
-          <li class="nav-item ms-3"><a class="nav-link button" href="{{ route('staff.logout') }}">Logout Admin</a></li>
+          @auth('admin')
+          <li class="nav-item ms-3"><a class="nav-link button" href="{{ route('admin.logout') }}">Logout Admin</a></li>
           @endauth
       </ul>
     </nav><!-- .navbar -->

@@ -16,9 +16,7 @@ use App\Http\Controllers\SupportController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome2');
-})->name('root');
+Route::get('/', [MovieController::class, 'home'])->name('root');
 Route::get('/about', function () {
     return view('pages.about');
 })->name('root.about');
