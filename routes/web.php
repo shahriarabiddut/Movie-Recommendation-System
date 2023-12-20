@@ -3,6 +3,7 @@
 use App\Http\Controllers\MovieController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\SupportController;
 
 /*
@@ -48,6 +49,9 @@ Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
     Route::get('/profile/interesteditRating/{id}', [ProfileController::class, 'editinterestrating'])->name('interest.rating');
     Route::put('/profile/interesteditRating/{id}', [ProfileController::class, 'ratingUpdate'])->name('interest.ratingUpdate');
     Route::post('/profile/intereststore', [ProfileController::class, 'intereststore'])->name('interest.store');
+
+    //Recommendation Routes
+    Route::get('recommendation/', [RecommendationController::class, 'index'])->name('recommendation.view');
 });
 
 require __DIR__ . '/auth.php';
