@@ -548,6 +548,16 @@ class MovieController extends Controller
     {
         //
         $data = Movie::find($id);
+        $MovieRatings = MovieRating::all()->where('movie_id', '=', $id);
+        if (count($MovieRatings) == 0) {
+            for ($i = 1; $i <= 3; $i++) {
+                $MovieRating = new MovieRating();
+                $MovieRating->movie_id = $data->id;
+                $MovieRating->rating_id = $i;
+                $MovieRating->ratings = 0;
+                $MovieRating->save();
+            }
+        }
         $MovieRatingData = MovieRating::all()->where('movie_id', '=', $id);
         return view('staff.movie.rating', ['data' => $data, 'MovieRatingData' => $MovieRatingData]);
     }
