@@ -107,14 +107,16 @@ class RecommendationController extends Controller
         //Sending Data To Front
         $RecomendedMovies = [];
         $i = 1;
+        $totalMovies = 2; // Set Value of movies to show here
         foreach ($calculation as $key => $MoviE) {
             $movieData = Movie::all()->where('id', $key)->first();
             $RecomendedMovies[] = $movieData;
-            if ($i >= 2) {
+            if ($i >= $totalMovies) {
                 break;
             }
             $i += 1;
         }
+        shuffle($RecomendedMovies);
         return view('pages.recom', ['calculation' => $calculation, 'data' => $RecomendedMovies]);
     }
     //Genre
@@ -126,9 +128,9 @@ class RecommendationController extends Controller
         $data = Movie::all();
         //KNN Selection Array
         $selectedMovie = [];
-        $weight = 0;
         // Check Match
         foreach ($data as $key => $movie) {
+            $weight = 0;
             //reseting the value
             $genreM = MovieGenre::all()->where('movie_id', $movie->id);
             $genreUser = $genreUserMD;
@@ -245,9 +247,9 @@ class RecommendationController extends Controller
         $data = Movie::all();
         //KNN Selection Array
         $selectedMovie = [];
-        $weight = 0;
         // Check Match
         foreach ($data as $key => $movie) {
+            $weight = 0;
             //reseting the value
             $genreM = MovieLanguage::all()->where('movie_id', $movie->id); // change here
             $genreUser = $genreUserMD;
@@ -277,14 +279,6 @@ class RecommendationController extends Controller
 
 
                 if (count($genreUser) == 0 && count($genreMovie) != 0) {
-                    // // Movie to User Distance
-                    // //Euclidean distance of values
-                    // $nWeight = 0;
-                    // foreach ($genreMovie as $genreData) {
-                    //     $nWeight = $nWeight + ($genreData * $genreData);
-                    // }
-                    // $weight = sqrt($nWeight);
-                    // $selectedMovie['movie' . $key] = $movie->id . '@' . $weight;
                     $selectedMovie['movie' . $key] = $movie->id . '@0';
                 } elseif (count($genreMovie) == 0 && count($genreUser) != 0) {
 
@@ -365,9 +359,9 @@ class RecommendationController extends Controller
         $data = Movie::all();
         //KNN Selection Array
         $selectedMovie = [];
-        $weight = 0;
         // Check Match
         foreach ($data as $key => $movie) {
+            $weight = 0;
             //reseting the value
             $genreM = MovieCast::all()->where('movie_id', $movie->id); // change here
             $genreUser = $genreUserMD;
@@ -397,14 +391,6 @@ class RecommendationController extends Controller
 
 
                 if (count($genreUser) == 0 && count($genreMovie) != 0) {
-                    // // Movie to User Distance
-                    // //Euclidean distance of values
-                    // $nWeight = 0;
-                    // foreach ($genreMovie as $genreData) {
-                    //     $nWeight = $nWeight + ($genreData * $genreData);
-                    // }
-                    // $weight = sqrt($nWeight);
-                    // $selectedMovie['movie' . $key] = $movie->id . '@' . $weight;
                     $selectedMovie['movie' . $key] = $movie->id . '@0';
                 } elseif (count($genreMovie) == 0 && count($genreUser) != 0) {
 
@@ -485,9 +471,9 @@ class RecommendationController extends Controller
         $data = Movie::all();
         //KNN Selection Array
         $selectedMovie = [];
-        $weight = 0;
         // Check Match
         foreach ($data as $key => $movie) {
+            $weight = 0;
             //reseting the value
             $genreM = MovieDirector::all()->where('movie_id', $movie->id); // change here
             $genreUser = $genreUserMD;
@@ -517,14 +503,6 @@ class RecommendationController extends Controller
 
 
                 if (count($genreUser) == 0 && count($genreMovie) != 0) {
-                    // // Movie to User Distance
-                    // //Euclidean distance of values
-                    // $nWeight = 0;
-                    // foreach ($genreMovie as $genreData) {
-                    //     $nWeight = $nWeight + ($genreData * $genreData);
-                    // }
-                    // $weight = sqrt($nWeight);
-                    // $selectedMovie['movie' . $key] = $movie->id . '@' . $weight;
                     $selectedMovie['movie' . $key] = $movie->id . '@0';
                 } elseif (count($genreMovie) == 0 && count($genreUser) != 0) {
 
@@ -605,9 +583,9 @@ class RecommendationController extends Controller
         $data = Movie::all();
         //KNN Selection Array
         $selectedMovie = [];
-        $weight = 0;
         // Check Match
         foreach ($data as $key => $movie) {
+            $weight = 0;
             //reseting the value
             $genreM = MovieCountry::all()->where('movie_id', $movie->id); // change here
             $genreUser = $genreUserMD;
@@ -637,14 +615,6 @@ class RecommendationController extends Controller
 
 
                 if (count($genreUser) == 0 && count($genreMovie) != 0) {
-                    // // Movie to User Distance
-                    // //Euclidean distance of values
-                    // $nWeight = 0;
-                    // foreach ($genreMovie as $genreData) {
-                    //     $nWeight = $nWeight + ($genreData * $genreData);
-                    // }
-                    // $weight = sqrt($nWeight);
-                    // $selectedMovie['movie' . $key] = $movie->id . '@' . $weight;
                     $selectedMovie['movie' . $key] = $movie->id . '@0';
                 } elseif (count($genreMovie) == 0 && count($genreUser) != 0) {
 
@@ -725,9 +695,9 @@ class RecommendationController extends Controller
         $data = Movie::all();
         //KNN Selection Array
         $selectedMovie = [];
-        $weight = 0;
         // Check Match
         foreach ($data as $key => $movie) {
+            $weight = 0;
             //reseting the value
             $genreM = MoviePcompany::all()->where('movie_id', $movie->id); // change here
             $genreUser = $genreUserMD;

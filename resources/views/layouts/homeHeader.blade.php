@@ -104,7 +104,8 @@
               <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Panel</a>
                 <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="{{ route('user.dashboard') }}">Dashboard</a></li>
-                  <li><a class="dropdown-item" href="{{ route('user.recommendation.view') }}">Recommendation</a></li>
+                  <li><a class="dropdown-item" href="{{ route('user.recommendation.view') }}">Recommendation (E)</a></li>
+                  <li><a class="dropdown-item" href="{{ route('user.recommendation.viewm') }}">Recommendation (M)</a></li>
                   <li><a class="dropdown-item" href="{{ route('user.profile.view') }}">Profile</a></li>
                 </ul>
               </li>

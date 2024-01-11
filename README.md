@@ -49,6 +49,9 @@ The steps I took to clone a laravel project required the `php artisan key:genera
    3.8 Dashboard simply Designed
 4. User profile and Interest Added
 5. Super Admin Added & Support System Updated!
+6. Recommendation is Based on User Interest and KNN used for this purpose
+   6.1 Euclidean Distance Used
+   6.2 Manhattan Distance Used
 
 ## Learning Laravel
 
