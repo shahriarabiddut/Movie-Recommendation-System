@@ -73,7 +73,6 @@ class RecommendationController extends Controller
             $languageId[] = $genreData->language_id; //change here
         }
         $languagePredict = $this->languagePredict($languageId);
-        dd($languagePredict);
         // Cast Weight & Prediction
         $castId = [];
         foreach ($InterestCastdata as $genreData) { //change here
