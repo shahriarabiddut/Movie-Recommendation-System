@@ -107,7 +107,7 @@ class RecommendationController extends Controller
         //Sending Data To Front
         $RecomendedMovies = [];
         $i = 1;
-        $totalMovies = 2; // Set Value of movies to show here
+        $totalMovies = 6; // Set Value of movies to show here
         foreach ($calculation as $key => $MoviE) {
             $movieData = Movie::all()->where('id', $key)->first();
             $RecomendedMovies[] = $movieData;

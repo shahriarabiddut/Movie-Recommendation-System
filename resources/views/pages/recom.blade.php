@@ -21,7 +21,7 @@
      <div class="carousel-item active">
         <div class="events_1i row">
        @foreach ($data as $movie)
-       @if ($loop->index >=0 or $loop->index ==2) 
+       @if ( $loop->index <=2) 
      <div class="col-md-4">
       <div class="events_1i1 clearfix position-relative">
        <div class="events_1i1i clearfix text-center">
