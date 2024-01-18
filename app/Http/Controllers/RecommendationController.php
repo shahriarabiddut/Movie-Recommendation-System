@@ -35,8 +35,9 @@ class RecommendationController extends Controller
      */
     public function index()
     {
+        // Starting clock time in seconds 
+        $start_time = microtime(true);
         //
-
         $user = Auth::user();
         $data = Interest::all()->where('user_id', '=', $user->id)->first();
         if ($data == null) {
@@ -103,6 +104,10 @@ class RecommendationController extends Controller
         $calculation = $this->calculation($languagePredict, $genrePredict, $castPredict, $directorPredict, $countryPredict, $pcompanyPredict);
         //Sorting Weight
         asort($calculation);
+        // End clock time in seconds 
+        $end_time = microtime(true);
+        // Calculate script execution time 
+        $execution_time = ($end_time - $start_time);
         // dd($calculation, $languagePredict, $genrePredict, $castPredict, $directorPredict, $countryPredict, $pcompanyPredict);
         //Sending Data To Front
         $RecomendedMovies = [];
@@ -117,7 +122,7 @@ class RecommendationController extends Controller
             $i += 1;
         }
         shuffle($RecomendedMovies);
-        return view('pages.recom', ['calculation' => $calculation, 'data' => $RecomendedMovies]);
+        return view('pages.recom', ['calculation' => $calculation, 'data' => $RecomendedMovies, 'time' => $execution_time]);
     }
     //Genre
     public function genrePredict(array $genreId)
