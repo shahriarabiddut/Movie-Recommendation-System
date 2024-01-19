@@ -197,7 +197,7 @@ class RecommendationController3 extends Controller
         $end_time = microtime(true);
         // Calculate script execution time 
         $execution_time = ($end_time - $start_time);
-        echo '<tab> Time Taken to Calculate ' . $execution_time . ' sec <br>';
+        echo ' Time Taken to Calculate ' . $execution_time . ' sec <br>';
     }
     public function KmeansControl($numberOfClusters, $data)
     {
@@ -316,6 +316,53 @@ class RecommendationController3 extends Controller
             echo " <br>";
         }
         echo " <br> Total Data Combination - " . $numbers . ' <br>   ';
+    }
+    public function indexMain()
+    {
+        //
+
+        // Starting clock time in seconds 
+        $start_time = microtime(true);
+        //
+        // cluster
+        $data = $this->data2DArray();
+
+        // Number of clusters
+        $numberOfClusters = 5;
+
+        // Kmean for Language
+        $result = $this->KmeansControlMain($numberOfClusters, $data);
+        // End clock time in seconds 
+        $end_time = microtime(true);
+        // Calculate script execution time 
+        $execution_time = ($end_time - $start_time);
+        $data = [];
+        foreach ($result as $r) {
+            $data[] = Movie::find($r[0]);
+        }
+        shuffle($data);
+        return view('pages.recom3', ['data' => $data, 'time' => $execution_time]);
+    }
+    public function KmeansControlMain($numberOfClusters, $data)
+    {
+        $numbers = 0;
+        // Create a KMeans instance
+        $kmeans = new KMeans($numberOfClusters);
+
+        // Perform clustering
+        $clusters = $kmeans->cluster($data);
+
+        // Display the clusters of Language
+        foreach ($clusters as $index => $cluster) {
+            // Number of points in the cluster
+            $numberOfPoints = count($cluster);
+            $numbers = $numbers + $numberOfPoints;
+            // echo "Cluster " . ($index + 1) . ": ($numberOfPoints) <br>";
+
+            if ($index == 0) {
+                return $cluster;
+            }
+        }
     }
     // public function index2()
     // {

@@ -55,7 +55,7 @@ Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
     //Recommendation Routes
     Route::get('recommendation/', [RecommendationController::class, 'index'])->name('recommendation.view');
     Route::get('recommendationM/', [RecommendationController2::class, 'index'])->name('recommendation.viewm');
-    Route::get('recommendationK/', [RecommendationController3::class, 'index'])->name('recommendation.view3');
+    Route::get('recommendationK/', [RecommendationController3::class, 'indexMain'])->name('recommendation.view3');
 });
 
 require __DIR__ . '/auth.php';
