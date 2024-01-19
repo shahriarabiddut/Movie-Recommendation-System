@@ -104,6 +104,8 @@
    </div>
  </div>
    </div>
+   <br><br>
+   <p> Execution Time {{ $time }}s</p>
   </div>
  </section>
 <!-- ======= Footer ======= -->
