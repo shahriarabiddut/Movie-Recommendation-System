@@ -34,7 +34,7 @@ class RecommendationController3 extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function data2DArray()
+    public function data2DArrayAll()
     {
         $mData = Movie::all();
         $uData = MovieCountry::all();
@@ -81,8 +81,107 @@ class RecommendationController3 extends Controller
         }
         return $resultArray;
     }
+    public function data2DArrayold()
+    {
+        $user = Auth::user();
+        $data = Interest::all()->where('user_id', '=', $user->id)->first();
+        $id = $data->id;
+        //IF any interest Added
+        $data = Interest::find($id);
+        $InterestGenredata = InterestGenre::all()->where('interest_id', '=', $id);
+        $InterestLanguagedata = InterestLanguage::all()->where('interest_id', '=', $id);
+        //
+        $mData = Movie::all();
+        $xData = MovieLanguage::all();
+        $yData = MovieGenre::all();
+        $resultArray = [];
+        $i = 0;
+        foreach ($mData as $mItem) {
+            foreach ($xData as $xItem) {
+                foreach ($InterestLanguagedata as $InterestLanguage) {
+                    if ($InterestLanguage->language_id == $xItem->language_id) {
+                        if ($mItem->id == $xItem->movie_id) {
+                            foreach ($yData as $yItem) {
+                                foreach ($InterestGenredata as $InterestGenre) {
+                                    if ($InterestGenre->genre_id == $yItem->genre_id) {
+                                        if ($mItem->id == $yItem->movie_id) {
+                                            $resultArray[] = [
+                                                0 => $mItem->id,
+                                                1 => $xItem->language_id,
+                                                2 => $mItem->id,
+                                            ];
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        dd($resultArray);
+        return $resultArray;
+    }
+    public function data2DArray()
+    {
+        $user = Auth::user();
+        $data = Interest::all()->where('user_id', '=', $user->id)->first();
+        $id = $data->id;
+        //IF any interest Added
+        $data = Interest::find($id);
+        $InterestGenredata = InterestGenre::all()->where('interest_id', '=', $id);
+        $InterestLanguagedata = InterestLanguage::all()->where('interest_id', '=', $id);
+        //
+        $mData = Movie::all();
+        $xData = MovieLanguage::all();
+        $yData = MovieGenre::all();
+        $resultArray = [];
+        $i = 0;
+        foreach ($mData as $mItem) {
+            foreach ($xData as $xItem) {
+                foreach ($InterestLanguagedata as $InterestLanguage) {
+                    if ($InterestLanguage->language_id == $xItem->language_id) {
+                        if ($mItem->id == $xItem->movie_id) {
+                            $resultArray[] = [
+                                0 => $mItem->id,
+                                1 => $xItem->language_id,
+                                2 => $mItem->id,
+                            ];
+                        }
+                    }
+                }
+            }
+        }
+        $resultArray1 = [];
+        foreach ($mData as $mItem) {
+            foreach ($yData as $yItem) {
+                foreach ($InterestGenredata as $InterestGenre) {
+                    if ($InterestGenre->genre_id == $yItem->genre_id) {
+                        if ($mItem->id == $yItem->movie_id) {
+                            foreach ($xData as $xItem) {
+                                foreach ($InterestLanguagedata as $InterestLanguage) {
+                                    if ($InterestLanguage->language_id == $xItem->language_id) {
+                                        if ($mItem->id == $xItem->movie_id) {
+                                            $resultArray[] = [
+                                                0 => $mItem->id,
+                                                1 => $xItem->language_id,
+                                                2 => $yItem->genre_id,
+                                            ];
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $resultArray;
+    }
     public function index()
     {
+        //
+
         // Starting clock time in seconds 
         $start_time = microtime(true);
         //
@@ -90,10 +189,10 @@ class RecommendationController3 extends Controller
         $data = $this->data2DArray();
 
         // Number of clusters
-        $numberOfClusters = 10;
+        $numberOfClusters = 5;
 
         // Kmean for Language
-        $this->KmeansControl($numberOfClusters, $data);
+        $this->KmeansControl2($numberOfClusters, $data);
         // End clock time in seconds 
         $end_time = microtime(true);
         // Calculate script execution time 
@@ -167,6 +266,51 @@ class RecommendationController3 extends Controller
                     }
                 }
                 echo "[" . $mDAta . " ," . $uDAta . " ," . $vDAta . " ," . $wDAta . " ," . $xDAta . " ," . $yDAta . " ," . $zDAta . "] <br>";
+            }
+
+            echo " <br>";
+        }
+        echo " <br> Total Data Combination - " . $numbers . ' <br>   ';
+    }
+    public function KmeansControl2($numberOfClusters, $data)
+    {
+        $numbers = 0;
+        // Create a KMeans instance
+        $kmeans = new KMeans($numberOfClusters);
+
+        // Perform clustering
+        $clusters = $kmeans->cluster($data);
+
+        // Display the clusters of Language
+        foreach ($clusters as $index => $cluster) {
+            // Number of points in the cluster
+            $numberOfPoints = count($cluster);
+            $numbers = $numbers + $numberOfPoints;
+            echo "Cluster " . ($index + 1) . ": ($numberOfPoints) <br>";
+
+            foreach ($cluster as $point) {
+                // echo "[" . implode(", ", $point) . "]\n";
+                foreach ($point as $key => $pointData) {
+                    if ($key == 0) {
+                        $Movie = Movie::find($pointData);
+                        $mDAta = $Movie->title;
+                    } elseif ($key == 1) {
+                        $Language = Language::find($pointData);
+                        if ($Language == null) {
+                            $xDAta = 'Missing';
+                        } else {
+                            $xDAta = $Language->title;
+                        }
+                    } elseif ($key == 2) {
+                        $Genre = Genre::find($pointData);
+                        if ($Genre == null) {
+                            $yDAta = 'Missing';
+                        } else {
+                            $yDAta = $Genre->title;
+                        }
+                    }
+                }
+                echo "[" . $mDAta . " ," . $xDAta . " ," . $yDAta . "] <br>";
             }
 
             echo " <br>";

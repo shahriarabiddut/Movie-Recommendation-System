@@ -121,7 +121,7 @@ class RecommendationController2 extends Controller
             }
             $i += 1;
         }
-        shuffle($RecomendedMovies);
+        // shuffle($RecomendedMovies);
         return view('pages.recom2', ['calculation' => $calculation, 'data' => $RecomendedMovies, 'time' => $execution_time]);
     }
     // //Data Predict
