@@ -232,7 +232,8 @@ class RecommendationController3 extends Controller
         {
             return in_array($newData, $dataArray);
         }
-
+        //$flag
+        $flag = 0;
         //
         $numbers = 0;
         $numbers2 = 0;
@@ -247,6 +248,7 @@ class RecommendationController3 extends Controller
         $end_time = microtime(true);
         // Display the clusters of Language
         foreach ($clusters as $index => $cluster) {
+            $flag = 0;
             // Example array to store previous data
             $previousDataArray = array();
             // Number of points in the cluster
@@ -261,6 +263,7 @@ class RecommendationController3 extends Controller
                         $Movie = Movie::find($pointData);
                         if ($pointData == '-1') {
                             $mDAta = 'User and Combination Number ' . $numbers2;
+                            $flag = 1;
                         } else {
                             $mDAta = $Movie->title;
                         }
@@ -316,13 +319,17 @@ class RecommendationController3 extends Controller
                     $numbers2 = $numbers2 + 1;
                 }
             }
-
+            if ($flag == 1) {
+                $movie = $index;
+            }
             echo " <br>";
         }
         echo " <br> Total Data Combination - " . $numbers . ' and Total Movies ' . $numbers2 . ' <br>   ';
         // Calculate script execution time 
         $execution_time = ($end_time - $start_time);
         echo ' Time Taken to Calculate ' . $execution_time . ' sec <br>';
+        echo count($clusters[$movie]);
+        // echo count($movie);
     }
     public function KmeansControl2($numberOfClusters, $data)
     {
