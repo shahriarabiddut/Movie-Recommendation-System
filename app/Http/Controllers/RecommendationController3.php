@@ -79,6 +79,42 @@ class RecommendationController3 extends Controller
                 }
             }
         }
+        //User Array
+        $user = Auth::user();
+        $data = Interest::all()->where('user_id', '=', $user->id)->first();
+        $id = $data->id;
+        //IF any interest Added
+        // $resultArray2 = [];
+        //IF any interest Added
+        $data = Interest::find($id);
+        $InterestGenredata = InterestGenre::all()->where('interest_id', '=', $id);
+        $InterestCastdata = InterestCast::all()->where('interest_id', '=', $id);
+        $InterestDirectordata = InterestDirector::all()->where('interest_id', '=', $id);
+        $InterestLanguagedata = InterestLanguage::all()->where('interest_id', '=', $id);
+        $InterestPcompanydata = InterestPcompany::all()->where('interest_id', '=', $id);
+        $InterestCountrydata = InterestCountry::all()->where('interest_id', '=', $id);
+        foreach ($InterestCountrydata as $uItem) {
+            foreach ($InterestPcompanydata as $vItem) {
+                foreach ($InterestDirectordata as $wItem) {
+                    foreach ($InterestLanguagedata as $xItem) {
+                        foreach ($InterestGenredata as $yItem) {
+                            foreach ($InterestCastdata as $zItem) {
+                                $resultArray[] = [
+                                    0 => '-1',
+                                    1 => $uItem->country_id,
+                                    2 => $vItem->pcompany_id,
+                                    3 => $wItem->director_id,
+                                    4 => $xItem->language_id,
+                                    5 => $yItem->genre_id,
+                                    6 => $zItem->cast_id,
+                                ];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // dd($resultArray2);
         return $resultArray;
     }
     public function data2DArrayold()
@@ -181,35 +217,38 @@ class RecommendationController3 extends Controller
     public function index()
     {
         //
-
-        // Starting clock time in seconds 
-        $start_time = microtime(true);
-        //
         // cluster
-        $data = $this->data2DArray();
-
+        $data = $this->data2DArrayAll();
         // Number of clusters
-        $numberOfClusters = 5;
+        $numberOfClusters = 10;
 
         // Kmean for Language
-        $this->KmeansControl2($numberOfClusters, $data);
-        // End clock time in seconds 
-        $end_time = microtime(true);
-        // Calculate script execution time 
-        $execution_time = ($end_time - $start_time);
-        echo ' Time Taken to Calculate ' . $execution_time . ' sec <br>';
+        $this->KmeansControl($numberOfClusters, $data);
     }
     public function KmeansControl($numberOfClusters, $data)
     {
+        // Function to check if data exists in the array
+        function isDataExist($dataArray, $newData)
+        {
+            return in_array($newData, $dataArray);
+        }
+
+        //
         $numbers = 0;
+        $numbers2 = 0;
+        // Starting clock time in seconds 
+        $start_time = microtime(true);
         // Create a KMeans instance
         $kmeans = new KMeans($numberOfClusters);
 
         // Perform clustering
         $clusters = $kmeans->cluster($data);
-
+        // End clock time in seconds 
+        $end_time = microtime(true);
         // Display the clusters of Language
         foreach ($clusters as $index => $cluster) {
+            // Example array to store previous data
+            $previousDataArray = array();
             // Number of points in the cluster
             $numberOfPoints = count($cluster);
             $numbers = $numbers + $numberOfPoints;
@@ -220,7 +259,11 @@ class RecommendationController3 extends Controller
                 foreach ($point as $key => $pointData) {
                     if ($key == 0) {
                         $Movie = Movie::find($pointData);
-                        $mDAta = $Movie->title;
+                        if ($pointData == '-1') {
+                            $mDAta = 'User and Combination Number ' . $numbers2;
+                        } else {
+                            $mDAta = $Movie->title;
+                        }
                     } elseif ($key == 1) {
                         $Country = Country::find($pointData);
                         if ($Country == null) {
@@ -264,13 +307,22 @@ class RecommendationController3 extends Controller
                             $zDAta = $Cast->name;
                         }
                     }
+                } // Check if data exists in the array
+                if (!isDataExist($previousDataArray, $mDAta)) {
+                    // Data doesn't exist, so process and store in the array
+                    echo "[" . $mDAta . " ," . $uDAta . " ," . $vDAta . " ," . $wDAta . " ," . $xDAta . " ," . $yDAta . " ," . $zDAta . "] <br>";
+                    // Store data in the array
+                    $previousDataArray[] = $mDAta;
+                    $numbers2 = $numbers2 + 1;
                 }
-                echo "[" . $mDAta . " ," . $uDAta . " ," . $vDAta . " ," . $wDAta . " ," . $xDAta . " ," . $yDAta . " ," . $zDAta . "] <br>";
             }
 
             echo " <br>";
         }
-        echo " <br> Total Data Combination - " . $numbers . ' <br>   ';
+        echo " <br> Total Data Combination - " . $numbers . ' and Total Movies ' . $numbers2 . ' <br>   ';
+        // Calculate script execution time 
+        $execution_time = ($end_time - $start_time);
+        echo ' Time Taken to Calculate ' . $execution_time . ' sec <br>';
     }
     public function KmeansControl2($numberOfClusters, $data)
     {

@@ -35,8 +35,7 @@ class RecommendationController2 extends Controller
      */
     public function index()
     {
-        // Starting clock time in seconds 
-        $start_time = microtime(true);
+
         //
         $user = Auth::user();
         $data = Interest::all()->where('user_id', '=', $user->id)->first();
@@ -61,6 +60,8 @@ class RecommendationController2 extends Controller
             $InterestRatingData = InterestRating::all()->where('interest_id', '=', $id);
             $InterestCountrydata = InterestCountry::all()->where('interest_id', '=', $id);
         }
+        // Starting clock time in seconds 
+        $start_time = microtime(true);
         // Genre Weight & Prediction
         $genreId = [];
         foreach ($InterestGenredata as $genreData) { //change here
