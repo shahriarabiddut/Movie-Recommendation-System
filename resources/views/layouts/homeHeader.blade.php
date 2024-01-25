@@ -106,7 +106,8 @@
                   <li><a class="dropdown-item" href="{{ route('user.dashboard') }}">Dashboard</a></li>
                   <li><a class="dropdown-item" href="{{ route('user.recommendation.view') }}">Recommendation (E)</a></li>
                   <li><a class="dropdown-item" href="{{ route('user.recommendation.viewm') }}">Recommendation (M)</a></li>
-                  <li><a class="dropdown-item" href="{{ route('user.recommendation.view3') }}">Recommendation (KMeans - NC)</a></li>
+                  <li><a class="dropdown-item" href="{{ route('user.recommendation.view3') }}">Recommendation (KMeans - E)</a></li>
+                  <li><a class="dropdown-item" href="{{ route('user.recommendation.view4') }}">Recommendation (KMeans - M)</a></li>
                   <li><a class="dropdown-item" href="{{ route('user.profile.view') }}">Profile</a></li>
                 </ul>
               </li>

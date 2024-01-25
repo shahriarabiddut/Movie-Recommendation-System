@@ -27,9 +27,9 @@ use App\Models\MovieCountry;
 use App\Models\MoviePcompany;
 use App\Models\ProductionCompany;
 use Illuminate\Support\Facades\Auth;
-use Phpml\Clustering\KMeans;
+use Phpml\Clustering\KMeans2;
 
-class RecommendationController3 extends Controller
+class RecommendationController4 extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -247,7 +247,7 @@ class RecommendationController3 extends Controller
         // Starting clock time in seconds 
         $start_time = microtime(true);
         // Create a KMeans instance
-        $kmeans = new KMeans($numberOfClusters);
+        $kmeans = new KMeans2($numberOfClusters);
 
         // Perform clustering
         $clusters = $kmeans->cluster($data);
@@ -317,11 +317,8 @@ class RecommendationController3 extends Controller
                             $zDAta = $Cast->name;
                         }
                     }
-                } // Check if data exists in the array
+                }
                 if (!isDataExist($previousDataArray, $mDAta)) {
-                    // // Data doesn't exist, so process and store in the array
-                    // echo "[" . $mDAta . " ," . $uDAta . " ," . $vDAta . " ," . $wDAta . " ," . $xDAta . " ," . $yDAta . " ," . $zDAta . "] <br>";
-                    // Store data in the array
                     $previousDataArray[] = $mDAta;
                     $numbers2 = $numbers2 + 1;
                 }
@@ -329,10 +326,7 @@ class RecommendationController3 extends Controller
             if ($flag == 1) {
                 $movie = $index;
             }
-            // echo " <br>";
         }
-        // echo " <br> Total Data Combination - " . $numbers . ' and Total Movies ' . $numbers2 . ' <br>   ';
-        // Calculate script execution time 
         $execution_time = ($end_time - $start_time);
         $Movie = $clusters[$movie];
         //
@@ -355,97 +349,5 @@ class RecommendationController3 extends Controller
         $dataReply[] = $execution_time;
 
         return $dataReply;
-    }
-    public function KmeansControl2($numberOfClusters, $data)
-    {
-        $numbers = 0;
-        // Create a KMeans instance
-        $kmeans = new KMeans($numberOfClusters);
-
-        // Perform clustering
-        $clusters = $kmeans->cluster($data);
-
-        // Display the clusters of Language
-        foreach ($clusters as $index => $cluster) {
-            // Number of points in the cluster
-            $numberOfPoints = count($cluster);
-            $numbers = $numbers + $numberOfPoints;
-            echo "Cluster " . ($index + 1) . ": ($numberOfPoints) <br>";
-
-            foreach ($cluster as $point) {
-                // echo "[" . implode(", ", $point) . "]\n";
-                foreach ($point as $key => $pointData) {
-                    if ($key == 0) {
-                        $Movie = Movie::find($pointData);
-                        $mDAta = $Movie->title;
-                    } elseif ($key == 1) {
-                        $Language = Language::find($pointData);
-                        if ($Language == null) {
-                            $xDAta = 'Missing';
-                        } else {
-                            $xDAta = $Language->title;
-                        }
-                    } elseif ($key == 2) {
-                        $Genre = Genre::find($pointData);
-                        if ($Genre == null) {
-                            $yDAta = 'Missing';
-                        } else {
-                            $yDAta = $Genre->title;
-                        }
-                    }
-                }
-                echo "[" . $mDAta . " ," . $xDAta . " ," . $yDAta . "] <br>";
-            }
-
-            echo " <br>";
-        }
-        echo " <br> Total Data Combination - " . $numbers . ' <br>   ';
-    }
-    public function indexMain()
-    {
-        //
-
-        // Starting clock time in seconds 
-        $start_time = microtime(true);
-        //
-        // cluster
-        $data = $this->data2DArray();
-
-        // Number of clusters
-        $numberOfClusters = 5;
-
-        // Kmean for Language
-        $result = $this->KmeansControlMain($numberOfClusters, $data);
-        // End clock time in seconds 
-        $end_time = microtime(true);
-        // Calculate script execution time 
-        $execution_time = ($end_time - $start_time);
-        $data = [];
-        foreach ($result as $r) {
-            $data[] = Movie::find($r[0]);
-        }
-        shuffle($data);
-        return view('pages.recom3', ['data' => $data, 'time' => $execution_time]);
-    }
-    public function KmeansControlMain($numberOfClusters, $data)
-    {
-        $numbers = 0;
-        // Create a KMeans instance
-        $kmeans = new KMeans($numberOfClusters);
-
-        // Perform clustering
-        $clusters = $kmeans->cluster($data);
-
-        // Display the clusters of Language
-        foreach ($clusters as $index => $cluster) {
-            // Number of points in the cluster
-            $numberOfPoints = count($cluster);
-            $numbers = $numbers + $numberOfPoints;
-            // echo "Cluster " . ($index + 1) . ": ($numberOfPoints) <br>";
-
-            if ($index == 0) {
-                return $cluster;
-            }
-        }
     }
 }
