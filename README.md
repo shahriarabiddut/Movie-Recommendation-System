@@ -23,7 +23,7 @@ The steps I took to clone a laravel project required the `php artisan key:genera
 
 ## Controller Initialization with crud Command
 
-`php artisan make:controller Staff/CastController -r`
+`php artisan make:controller CastController -r`
 
 ## Model Initialization with migration Command
 
@@ -52,6 +52,8 @@ The steps I took to clone a laravel project required the `php artisan key:genera
 6. Recommendation is Based on User Interest and KNN used for this purpose
    6.1 Euclidean Distance Used
    6.2 Manhattan Distance Used
+   6.3 KMeans Euclidean Distance Used
+   6.3 KMeans Manhattan Distance Used
 
 ## Learning Laravel
 
