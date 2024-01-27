@@ -675,4 +675,44 @@ class RecommendationController3 extends Controller
     //     $keyOfLang2 = array_search($language2, $languages);
     //     return $distances[$keyOfLang1][$keyOfLang2];
     // }
+    public function KmeansControl4($numberOfClusters, $data)
+    {
+        $numbers = 0;
+        $numbers2 = 0;
+        // Starting clock time in seconds 
+        $start_time = microtime(true);
+        // Create a KMeans instance
+        $kmeans = new KMeans($numberOfClusters);
+
+        // Perform clustering
+        $clusters = $kmeans->cluster($data);
+        // End clock time in seconds 
+        $end_time = microtime(true);
+        // Display the clusters of Language
+        foreach ($clusters as $index => $cluster) {
+            // Number of points in the cluster
+            $numberOfPoints = count($cluster);
+            $numbers = $numbers + $numberOfPoints;
+            echo "<br>Cluster " . ($index + 1) . ": ($numberOfPoints) <br>";
+
+            foreach ($cluster as $point) {
+                echo "[" . implode(", ", $point) . "], <br>";
+                $numbers2 = $numbers2 + 1;
+            }
+        }
+        $execution_time = ($end_time - $start_time);
+        //
+        echo 'Combinations ' . $numbers2 . ' , Calculatuion Time' . $execution_time . 's ';
+    }
+    public function index4()
+    {
+        //
+        // cluster
+        $data = $this->data2DArrayAll();
+        // Number of clusters
+        $numberOfClusters = 10;
+
+        // Kmean for Language
+        $this->KmeansControl4($numberOfClusters, $data);
+    }
 }
