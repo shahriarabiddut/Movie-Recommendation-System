@@ -1,100 +1,120 @@
+# Movie Recommendation System
+A Laravel-based movie recommendation system that suggests movies based on user interests using KNN (Euclidean & Manhattan Distance) and K-Means clustering.
+
 ## Required Configuration
+- **PHP** >= 8.1
+- **Laravel** 10
 
-PHP >= 8.1
-Laravel 10
+## Installation
+Follow these steps to set up the project:
 
-## Use THis Command to dowload required Packages
+**Clone the Repository**:
+```bash
+git clone <repository-url>
+cd <project-directory>
+```
 
-The most important thing to do when cloning a laravel project is to first run `composer update` then `composer install` The ###composer install command installs any required dependencies for that laravel app.
+**Install Dependencies**:
+Run the following commands to install the required packages:
+```bash
+composer update
+composer install
+```
 
-The steps I took to clone a laravel project required the `php artisan key:generate` command. You can see in your .env file that there is an updated APP_KEY=base64:xxxxxxxxxxxxxxxxxxxx after running this command.
+**Generate Application Key**:
+Generate the Laravel application key: This will update the APP_KEY in your .env file.
+```bash
+php artisan key:generate
+```
 
-## Storage Link Command
+**Set Up Storage Link**:
+Create a symbolic link for the storage directory:
+```bash
+php artisan storage:link
+```
 
-`php artisan storage:link`
+**Configure Database**:
+Update your .env file with your database credentials:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database_name
+DB_USERNAME=your_database_user
+DB_PASSWORD=your_database_password
+```
 
-## Databse Initialization Command
+**Run Migrations**:
+Initialize the database by running migrations:
+```bash
+php artisan migrate
+```
 
-`php artisan migrate`
+To seed the database with initial data, use:
+```bash
+php artisan migrate:refresh --seed
+```
 
-### Migration with Seeder
+## Commands
 
-`php artisan migrate:refresh --seed`
+**Create a Controller with CRUD Operations**:
+To generate a controller with CRUD methods, use:
+```bash
+php artisan make:controller CastController -r
+```
 
-## Controller Initialization with crud Command
+**Create a Model with Migration**:
+To create a model along with its migration file, use:
+```bash
+php artisan make:model Cast -m
+```
 
-`php artisan make:controller CastController -r`
+## Project Features
 
-## Model Initialization with migration Command
+1. **Multi-Authentication System**
+   - Admin, Staff, and User roles are implemented.
+   - Laravel Breeze is used for authentication scaffolding.
+   - Email Verification is enabled for users.
+   - Login is available for all roles, but Registration is only for users.
 
-`php artisan make:model Cast -m`
+2. **Admin CRUD Operations**
+   - Admins can perform CRUD operations for Users and Staff.
 
-## Project Ongoing Process
+3. **CRUD Management**
+   - The following CRUD operations are managed:
+     - Cast CRUD
+     - Genre CRUD
+     - Production Company CRUD
+     - Language CRUD
+     - Director CRUD
+     - Movie CRUD
+     - Country CRUD
+   - A Dashboard is also included.
 
-1. Multi Auth Complete
-   Admin , Staff & User
-   Larvel Breeze
-   Email Verification Enabled for user
-   Login for all
-   Registration Only For Users
-2. Admin CRUD for Users and Staff
-3. CRUD Management
-   3.1 Cast CRUD
-   3.2 Genre CRUD
-   3.3 Production Company CRUD
-   3.4 Language CRUD
-   3.5 Director CRUD
-   3.6 Movie CRUD
-   3.7 Country CRUD
-   3.8 Dashboard simply Designed
-4. User profile and Interest Added
-5. Super Admin Added & Support System Updated!
-6. Recommendation is Based on User Interest and KNN used for this purpose
-   6.1 Euclidean Distance Used
-   6.2 Manhattan Distance Used
-   6.3 KMeans Euclidean Distance Used
-   6.3 KMeans Manhattan Distance Used
+4. **User Profile and Interest**
+   - Users can manage their profiles and interests.
 
-## Learning Laravel
+5. **Super Admin and Support System**
+   - A Super Admin role has been added.
+   - The support system has been updated.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
--   **[Vehikl](https://vehikl.com/)**
--   **[Tighten Co.](https://tighten.co)**
--   **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
--   **[64 Robots](https://64robots.com)**
--   **[Cubet Techno Labs](https://cubettech.com)**
--   **[Cyber-Duck](https://cyber-duck.co.uk)**
--   **[Many](https://www.many.co.uk)**
--   **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
--   **[DevSquad](https://devsquad.com)**
--   **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
--   **[OP.GG](https://op.gg)**
--   **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
--   **[Lendio](https://lendio.com)**
+6. **Recommendation System**
+   - Recommendations are based on user interests.
+   - KNN (K-Nearest Neighbors) algorithm is used for recommendations:
+     - Euclidean Distance
+     - Manhattan Distance
+     - KMeans with Euclidean Distance
+     - KMeans with Manhattan Distance
 
 ## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+If you'd like to contribute to this project, please follow these steps:
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Submit a pull request.
 
 ## License
+This project is open-source and available under the MIT License.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Support
+For any issues or questions, please contact the development team or open an issue on the repository.
+
